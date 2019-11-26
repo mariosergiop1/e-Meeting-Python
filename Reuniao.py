@@ -3,7 +3,7 @@ class Reuniao:
     def __init__(self):
        self.ata = str
        self.dataReuniao = str
-       self.local = str
+       self.local = ['IESP']
        self.participantes = []
 
     def setAta(self, ata):

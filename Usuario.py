@@ -2,7 +2,6 @@ class Usuario(object):
 
     def __init__(self):
         self.nome = str
-        self.cpf = str
         self.login = str
         self.senha = str
         self.email = str
@@ -12,12 +11,6 @@ class Usuario(object):
 
     def getNome(self):
         return self.nome
-
-    def setCpf(self, cpf):
-        self.cpf = cpf
-
-    def getCpf(self):
-        return self.cpf
 
     def setLogin(self, login):
         self.login = login
@@ -38,4 +31,4 @@ class Usuario(object):
         return self.email
 
     def __repr__(self):
-        return f' Nome: {self.getNome()}\n Email: {self.getEmail()}\n CFP: {self.getCPF()}'
+        return f' Nome: {self.getNome()}\n Email: {self.getEmail()}'
