@@ -9,7 +9,7 @@ class GestorRecursos:
         self.email = str
         self.cod = 'admin'
 
-        cadastroGr = {}
+    cadastroGr = {}
 
     def getLogin(self):
         return self.login

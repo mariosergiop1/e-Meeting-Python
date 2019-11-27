@@ -6,7 +6,8 @@ import Coordenador
 import GestorRecursos
 
 def main():
-    cadastro = {'Mario': '123'}
+    cadastro = {'Mario': '123', 'Feijao': '123', 'Carlos': '321', 'Marcos': '123'}
+    reunioes = []
     u = Usuario.Usuario()
     r = Reuniao.Reuniao()
     c = Coordenador.Coordenador()
@@ -74,41 +75,50 @@ def main():
                     pagInic = input("Operação Invalida!!\n[1].CRIAR UMA REUNIAO\n[2].CONFIRMAR OU NEGAR PRESENÇA EM REUNIÕES\n[3].LISTAR REUNIÕES\n")
 
                 while pagInic == '1':
+                    tmp = '1'
+                    while tmp == '1' and len(r.participantes) < 10:
+                        for t in cadastro:
+                            print(t)
+                        part = input("Selecione até 10 participantes\n")
+                        if part in cadastro:
+                            if part in r.getParticipantes():
+                                print("Usuário já adicionado a reunião")
 
-                 tmp = '1'
-                while tmp == '1' and len(r.participantes) < 10:
-                    for t in cadastro:
-                        print(t)
-                    part = input("Selecione até 10 participantes\n")
-                    if part in cadastro:
-                        if part in r.getParticipantes():
-                            print("Usuário já adicionado a reunião")
-
+                            else:
+                                r.participantes.append(part)
+                                tmp = input("Deseja adicionar mais um participante?\n[1]. SIM\n[2]. NÃO\n")
                         else:
-                            r.participantes.append(part)
-                            tmp = input("Deseja adicionar mais um participante?\n[1]. SIM\n[2]. NÃO\n")
-                    else:
-                        print("##### USUÁRIO NÃO CADASTRADO #####")
+                            print("##### USUÁRIO NÃO CADASTRADO #####")
 
-                    if tmp == '2':
-                        print("PARTICIPANTES CONVIDADOS PARA A REUNIAO")
-                        print(r.getParticipantes())
-                    elif len(r.participantes) >= 10:
-                        print("LIMITE DE PARTICIPANTES EXCEDIDA")
+                        if tmp == '2':
+                            print("PARTICIPANTES CONVIDADOS PARA A REUNIAO")
+                            print(r.getParticipantes())
+                        elif len(r.participantes) >= 10:
+                            print("LIMITE DE PARTICIPANTES EXCEDIDA")
 
-                local = input("##### INSIRA O LOCAL DA REUNIÃO #####\n")
-                r.setLocal(local)
-                data = input("##### INFORME A DATA DA REUNIÃO #####\n")
-                r.dataReuniao(data)
-                ata = input("##### INFORME A ATA DA REUNIÃO #####\n")
-                r.setAta(ata)
-                r = gr.criarReuniao(r.getParticipantes(), local, data, ata)
-                reunioes = []
-                reunioes.append(r)
-                gr.listarReunioes(reunioes)
+                    local = input("##### INSIRA O LOCAL DA REUNIÃO #####\n")
+                    r.setLocal(local)
+                    data = input("##### INFORME A DATA DA REUNIÃO #####\n")
+                    r.setDataReuniao(data)
+                    ata = input("##### INFORME A ATA DA REUNIÃO #####\n")
+                    r.setAta(ata)
+                    r = gr.criarReuniao(r.getParticipantes(), local, data, ata)
+                    reunioes.append(r)
+                    gr.listarReunioes(reunioes)
 
-                pagInic = input("[1].CRIAR UMA REUNIAO\n[2].CONFIRMAR OU NEGAR PRESENÇA EM REUNIÕES\n[3].LISTAR REUNIÕES\n")
+                    pagInic = input("[1].CRIAR UMA REUNIAO\n[2].CONFIRMAR OU NEGAR PRESENÇA EM REUNIÕES\n[3].LISTAR REUNIÕES\n")
 
+                while pagInic == '3':
+                    pagInic = ''
+                    print("##### LISTAR REUNIÕES #####")
+                    gr.listarReunioes(reunioes)
+                    arquivo = open('GerenciamentoReuniões.txt', 'w')
+                    arquivo.write('A reunião será no dia '+r.getDataReuniao())
+                    arquivo.write('Local: '+r.getLocal())
+                    arquivo.write('A ata da reunião será: '+r.getAta())
+                    arquivo.close()
+
+                    pagInic = input("[1].CRIAR UMA REUNIAO\n[2].CONFIRMAR OU NEGAR PRESENÇA EM REUNIÕES\n[3].LISTAR REUNIÕES\n")
 
             else:
                 print("##### LOGIN/SENHA INCORRETOS #####")
@@ -123,26 +133,7 @@ def main():
             print("##### LOGIN/SENHA INCORRETOS #####")
 
 
-    '''while loginAcesso and senhaAcesso not in cadastro.keys():
-        print("###### LOGIN/SENHA INCORRETO\n")
-        loginAcesso = input("Insira seu Login\n")
-        senhaAcesso = input("Insira a senha\n")'''
-
-
-    '''u = UsuarioComum.Usuario()
-    u.setNome("Paulo")
-    u.setEmail('Junior@gmail.com')
-    u.setEndereco('Rua a')
-    u.setCPF("703.506.464.81")
-
-
-    us2 = UsuarioComum.Usuario()
-    us2.setNome("Sergio")
-    us2.setEmail('Juniorvasco@gmail.com')
-    us2.setEndereco('Rua b')
-    us2.setCPF("703.506.464.81")
-
-    participant = []
+    '''participant = []
     participant.append(u)
     participant.append(us2)
 

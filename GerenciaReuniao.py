@@ -1,6 +1,5 @@
 import Reuniao
 
-
 class GerenciaReuniao:
 
     def __init__(self):

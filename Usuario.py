@@ -5,6 +5,9 @@ class Usuario(object):
         self.login = str
         self.senha = str
         self.email = str
+        self.reunioesConfir = []
+
+    cadastro = {'Mario': '123'}
 
     def setNome(self, nome):
         self.nome = nome
@@ -29,6 +32,12 @@ class Usuario(object):
 
     def getEmail(self):
         return self.email
+
+    def setReunioesConfir(self, reunioesConfir):
+        self.reunioesConfir = reunioesConfir
+
+    def getReunioesConfir(self):
+        return self.reunioesConfir
 
     def __repr__(self):
         return f' Nome: {self.getNome()}\n Email: {self.getEmail()}'
