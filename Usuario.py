@@ -33,9 +33,11 @@ class Usuario(object):
     def getEmail(self):
         return self.email
 
+    #Metodo para criação de reuniões
     def setReunioesConfir(self, reunioesConfir):
         self.reunioesConfir = reunioesConfir
 
+    #Metodo para recuperar reuniões
     def getReunioesConfir(self):
         return self.reunioesConfir
 

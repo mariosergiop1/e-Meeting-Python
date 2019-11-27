@@ -24,9 +24,11 @@ class Reuniao:
     def getLocal(self):
         return self.local
 
+    #Metodo para setar participantes
     def setParticipantes(self,participante):
         self.participantes = participante
 
+    #Metodo para recuperar participantes
     def getParticipantes(self):
         return self.participantes
 

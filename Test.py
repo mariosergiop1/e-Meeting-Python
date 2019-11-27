@@ -20,9 +20,11 @@ def main():
     while menu != '1' and menu != '2' and menu != '3':
         menu = input("Operação Invalida!!\n[1].CADASTRAR USUARIO\n[2].LOGAR NO SISTEMA\n[3].SAIR\n")
 
+    #Condição para Sair do sistema
     if menu == '3':
         sys.exit()
 
+    #Condição para logar no sistema
     while menu == '1':
         print('##### REALIZAR CADASTRO #####')
         cad = input("[1].USARIO COMUM\n[2].COORDENADOR\n[3].GESTOR DE RECURSOS\n")
@@ -42,6 +44,7 @@ def main():
 
             menu = input("[1].CADASTRAR USUARIO\n[2].LOGAR NO SISTEMA\n[3].SAIR\n")
 
+        #Condição para logar no sistema como coordenador
         elif cad == '2':
             validar = input("Insira o código de permissão\n")
             if validar == c.getCod():
@@ -61,10 +64,12 @@ def main():
 
             menu = input("[1]. CADASTRAR USUARIO\n[2].LOGAR NO SISTEMA\n[3].SAIR\n")
 
+    #Condição para logar no sistema
     while menu == '2':
         loginAcesso = input("Insira seu Login\n")
         senhaAcesso = input("Insira a senha\n")
 
+        #Validação de acesso
         if loginAcesso in cadastro:
             if senhaAcesso == cadastro.get(loginAcesso):
                 print("##### LOGIN REALIZADO COM SUCESSO #####")
@@ -74,6 +79,7 @@ def main():
                 while pagInic != '1' and pagInic != '2' and pagInic != '3':
                     pagInic = input("Operação Invalida!!\n[1].CRIAR UMA REUNIAO\n[2].CONFIRMAR OU NEGAR PRESENÇA EM REUNIÕES\n[3].LISTAR REUNIÕES\n")
 
+                #Metodo criação de reunião
                 while pagInic == '1':
                     tmp = '1'
                     while tmp == '1' and len(r.participantes) < 10:
@@ -108,6 +114,7 @@ def main():
 
                     pagInic = input("[1].CRIAR UMA REUNIAO\n[2].CONFIRMAR OU NEGAR PRESENÇA EM REUNIÕES\n[3].LISTAR REUNIÕES\n")
 
+                #Metodo para listar reunião
                 while pagInic == '3':
                     pagInic = ''
                     print("##### LISTAR REUNIÕES #####")
@@ -131,31 +138,5 @@ def main():
                 print("##### LOGIN/SENHA INCORRETOS #####")
         else:
             print("##### LOGIN/SENHA INCORRETOS #####")
-
-
-    '''participant = []
-    participant.append(u)
-    participant.append(us2)
-
-    r = Reuniao.Reuniao()
-
-    #r.setParticipantes(participant)
-
-    #print(participantes)
-
-    #print(r.getParticipantes())
-
-    gr = GerenciaReuniao.GerenciaReuniao()
-
-    r = gr.criarReuniao(participant,"Local a","19/11/2019","Ata desconhecida")
-
-    r2 = gr.criarReuniao(participant,"Local master","25/11/2019","Ata desconectada")
-
-    reunioes = []
-    reunioes.append(r)
-    reunioes.append(r2)
-    gr.listarReunioes(reunioes)
-
-    #print(gr.editarAta(r2,'Ata Conhecida'))'''
 
 main()

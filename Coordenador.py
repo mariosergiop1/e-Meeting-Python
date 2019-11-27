@@ -41,5 +41,6 @@ class Coordenador:
     def getCod(self):
         return self.cod
 
+    #Metodo para cadastrar local
     def cadastrarLocal(self, local):
         self.r.getLocal.append(local)
