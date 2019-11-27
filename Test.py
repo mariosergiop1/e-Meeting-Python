@@ -3,19 +3,21 @@ import Usuario
 import GerenciaReuniao
 import Reuniao
 import Coordenador
+import GestorRecursos
 
 def main():
     cadastro = {'Mario': '123'}
-    us = Usuario.Usuario()
-    gr = GerenciaReuniao.GerenciaReuniao()
+    u = Usuario.Usuario()
     r = Reuniao.Reuniao()
     c = Coordenador.Coordenador()
+    g = GestorRecursos.GestorRecursos()
+    gr = GerenciaReuniao.GerenciaReuniao()
 
     print("##### BEM VINDO #####")
-    menu = input("[1]. CADASTRAR USUARIO\n[2].LOGAR NO SISTEMA\n[3].SAIR\n")
+    menu = input("[1].CADASTRAR USUARIO\n[2].LOGAR NO SISTEMA\n[3].SAIR\n")
 
     while menu != '1' and menu != '2' and menu != '3':
-        menu = input("Operação Invalida!!\n[1]. CADASTRAR USUARIO\n[2].LOGAR NO SISTEMA\n[3].SAIR\n")
+        menu = input("Operação Invalida!!\n[1].CADASTRAR USUARIO\n[2].LOGAR NO SISTEMA\n[3].SAIR\n")
 
     if menu == '3':
         sys.exit()
@@ -25,19 +27,19 @@ def main():
         cad = input("[1].USARIO COMUM\n[2].COORDENADOR\n[3].GESTOR DE RECURSOS\n")
 
         if cad == '1':
-            us.setNome(input("Insira o nome do usuário\n"))
-            us.setEmail(input("Informe o e-mail do usuário\n"))
-            us.setLogin(input("Insira o login do usuário\n"))
-            us.setSenha(input("Insira a senha do usuário\n"))
+            u.setNome(input("Insira o nome do usuário\n"))
+            u.setEmail(input("Informe o e-mail do usuário\n"))
+            u.setLogin(input("Insira o login do usuário\n"))
+            u.setSenha(input("Insira a senha do usuário\n"))
 
-            if us.login in cadastro.keys():
+            if u.login in cadastro.keys():
                 print("Alguém já esta usando este login")
             else:
-                cadastro[us.login] = us.senha
-                print("Usuário", us.login, "cadastrado com sucesso")
+                cadastro[u.login] = u.senha
+                print("Usuário", u.login, "cadastrado com sucesso")
                 print(cadastro)
 
-            menu = input("[1]. CADASTRAR USUARIO\n[2].LOGAR NO SISTEMA\n[3].SAIR\n")
+            menu = input("[1].CADASTRAR USUARIO\n[2].LOGAR NO SISTEMA\n[3].SAIR\n")
 
         elif cad == '2':
             validar = input("Insira o código de permissão\n")
@@ -46,14 +48,15 @@ def main():
                 c.setEmail(input("Informe o e-mail do usuário\n"))
                 c.setLogin(input("Insira o login do usuário\n"))
                 c.setSenha(input("Insira a senha do usuário\n"))
+
+                if c.login in c.cadastroCord.keys():
+                    print("Alguém já esta usando este login")
+                else:
+                    c.cadastroCord[c.login] = c.senha
+                    print("Coordenador", c.login, "cadastrado com sucesso")
+                    print(c.cadastroCord)
             else:
                 print("##### CÓDIGO DE PERMISSÃO INVÁLIDO")
-            if c.login in c.cadastroCord.keys():
-                print("Alguém já esta usando este login")
-            else:
-                c.cadastroCord[c.login] = c.senha
-                print("Coordenador", c.login, "cadastrado com sucesso")
-                print(c.cadastroCord)
 
             menu = input("[1]. CADASTRAR USUARIO\n[2].LOGAR NO SISTEMA\n[3].SAIR\n")
 
@@ -69,20 +72,21 @@ def main():
 
                 while pagInic != '1' and pagInic != '2' and pagInic != '3':
                     pagInic = input("Operação Invalida!!\n[1].CRIAR UMA REUNIAO\n[2].CONFIRMAR OU NEGAR PRESENÇA EM REUNIÕES\n[3].LISTAR REUNIÕES\n")
-                if pagInic == '1':
+
+                while pagInic == '1':
 
                  tmp = '1'
                 while tmp == '1' and len(r.participantes) < 10:
-                    for u in cadastro:
-                        print(u)
+                    for t in cadastro:
+                        print(t)
                     part = input("Selecione até 10 participantes\n")
                     if part in cadastro:
-                        if part != r.getParticipantes():
-                            r.participantes.append(part)
-                            tmp = input("Deseja adicionar mais um participante?\n[1]. SIM\n[2]. NÃO\n")
+                        if part in r.getParticipantes():
+                            print("Usuário já adicionado a reunião")
 
                         else:
-                            print("Usuário já adicionado a reunião")
+                            r.participantes.append(part)
+                            tmp = input("Deseja adicionar mais um participante?\n[1]. SIM\n[2]. NÃO\n")
                     else:
                         print("##### USUÁRIO NÃO CADASTRADO #####")
 
@@ -96,17 +100,28 @@ def main():
                 r.setLocal(local)
                 data = input("##### INFORME A DATA DA REUNIÃO #####\n")
                 r.dataReuniao(data)
-                ata = input("##### INFORME A ATA DA REUNIÃO\n")
+                ata = input("##### INFORME A ATA DA REUNIÃO #####\n")
                 r.setAta(ata)
                 r = gr.criarReuniao(r.getParticipantes(), local, data, ata)
                 reunioes = []
                 reunioes.append(r)
                 gr.listarReunioes(reunioes)
 
+                pagInic = input("[1].CRIAR UMA REUNIAO\n[2].CONFIRMAR OU NEGAR PRESENÇA EM REUNIÕES\n[3].LISTAR REUNIÕES\n")
+
+
+            else:
+                print("##### LOGIN/SENHA INCORRETOS #####")
+
+        elif loginAcesso in c.cadastroCord:
+            if senhaAcesso == c.cadastroCord.get(loginAcesso):
+                print("##### LOGIN REALIZADO COM SUCESSO #####")
+
             else:
                 print("##### LOGIN/SENHA INCORRETOS #####")
         else:
             print("##### LOGIN/SENHA INCORRETOS #####")
+
 
     '''while loginAcesso and senhaAcesso not in cadastro.keys():
         print("###### LOGIN/SENHA INCORRETO\n")
@@ -114,11 +129,11 @@ def main():
         senhaAcesso = input("Insira a senha\n")'''
 
 
-    '''us = UsuarioComum.Usuario()
-    us.setNome("Paulo")
-    us.setEmail('Junior@gmail.com')
-    us.setEndereco('Rua a')
-    us.setCPF("703.506.464.81")
+    '''u = UsuarioComum.Usuario()
+    u.setNome("Paulo")
+    u.setEmail('Junior@gmail.com')
+    u.setEndereco('Rua a')
+    u.setCPF("703.506.464.81")
 
 
     us2 = UsuarioComum.Usuario()
@@ -128,7 +143,7 @@ def main():
     us2.setCPF("703.506.464.81")
 
     participant = []
-    participant.append(us)
+    participant.append(u)
     participant.append(us2)
 
     r = Reuniao.Reuniao()
